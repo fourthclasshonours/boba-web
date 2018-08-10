@@ -4,11 +4,6 @@ import Shop from '../Shop';
 
 import './styles.scss';
 
-const getShopLocation = (shop) => ({
-  latitude: Number(shop.location.LATITUDE),
-  longitude: Number(shop.location.LONGITUDE),
-});
-
 class ShopList extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +14,10 @@ class ShopList extends Component {
     };
 
     this.load = this.load.bind(this);
+    this.getShopLocation = (shop) => ({
+      latitude: Number(shop.location.LATITUDE),
+      longitude: Number(shop.location.LONGITUDE),
+    });
   }
 
   componentDidMount() {
@@ -41,15 +40,15 @@ class ShopList extends Component {
       if (!location) {
         return 0;
       }
-      const prevShopDistance = getDistance(location, getShopLocation(prevShop));
-      const nextShopDistance = getDistance(location, getShopLocation(nextShop));
+      const prevShopDistance = getDistance(location, this.getShopLocation(prevShop));
+      const nextShopDistance = getDistance(location, this.getShopLocation(nextShop));
       return prevShopDistance - nextShopDistance;
     };
     return (
       <div className="shop-list">
         {
           shops.sort(sortFunc).map((shop) => (
-            <Shop shop={shop} key={shop.address} distance={location ? getDistance(location, getShopLocation(shop)) : null} />
+            <Shop shop={shop} key={shop.address} distance={location ? getDistance(location, this.getShopLocation(shop)) : null} />
           ))
         }
       </div>
