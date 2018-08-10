@@ -5,8 +5,8 @@ import Shop from '../Shop';
 import './styles.scss';
 
 const getShopLocation = (shop) => ({
-  latitude: shop.location.LATITUDE,
-  longitude: shop.location.LONGITUDE,
+  latitude: Number(shop.location.LATITUDE),
+  longitude: Number(shop.location.LONGITUDE),
 });
 
 class ShopList extends Component {
