@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import Shop from '../Shop';
+
+import './styles.scss';
 
 class ShopList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      shops: []
+      shops: [],
     };
 
     this.load = this.load.bind(this);
@@ -14,7 +17,7 @@ class ShopList extends Component {
   componentDidMount() {
     this.load();
   }
-  
+
   async load() {
     const shops = await fetch('https://bottleneckco.github.io/boba-scraper/data.json')
       .then((r) => r.json());
@@ -23,11 +26,12 @@ class ShopList extends Component {
   }
 
   render() {
+    const { shops } = this.state;
     return (
-      <div>
+      <div className="shop-list">
         {
-          this.state.shops.map((shop) => (
-            <span>{JSON.stringify(shop)}</span>
+          shops.map((shop) => (
+            <Shop shop={shop} key={shop.address} />
           ))
         }
       </div>
