@@ -22,7 +22,12 @@ class ShopList extends Component {
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({ location: position.coords });
+      this.setState({
+        location: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        },
+      });
     }, console.error);
     this.load();
   }
