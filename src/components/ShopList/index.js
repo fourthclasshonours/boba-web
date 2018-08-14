@@ -10,10 +10,13 @@ class ShopList extends Component {
 
     this.state = {
       shops: [],
-      location: null,
+      userLocation: null,
     };
 
     this.load = this.load.bind(this);
+    this.sortByDist = this.sortByDist.bind(this);
+    this.renderShops = this.renderShops.bind(this);
+
     this.getShopLocation = (shop) => ({
       latitude: Number(shop.location.LATITUDE),
       longitude: Number(shop.location.LONGITUDE),
@@ -23,13 +26,35 @@ class ShopList extends Component {
   componentDidMount() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.setState({
-        location: {
+        userLocation: {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         },
       });
     }, console.error);
     this.load();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { userLocation, shops } = this.state;
+
+    if (!prevState.userLocation || prevState.shops.length === 0) {
+      if (userLocation && shops.length > 0) {
+        const sortedShops = shops.sort(this.sortByDist);
+        this.setState({ shops: sortedShops });
+      }
+    }
+  }
+
+  sortByDist(prevShop, nextShop) {
+    const { userLocation } = this.state;
+    if (!userLocation) {
+      return 0;
+    }
+
+    const prevShopDistance = getDistance(userLocation, this.getShopLocation(prevShop));
+    const nextShopDistance = getDistance(userLocation, this.getShopLocation(nextShop));
+    return prevShopDistance - nextShopDistance;
   }
 
   async load() {
@@ -39,23 +64,26 @@ class ShopList extends Component {
     this.setState({ shops });
   }
 
+  renderShops() {
+    const { shops, userLocation } = this.state;
+
+    if (shops.length === 0) {
+      return <div>Loading...</div>;
+    }
+
+    return shops.map((shop) => (
+      <Shop
+        shop={shop}
+        key={shop.address}
+        distance={userLocation ? getDistance(userLocation, this.getShopLocation(shop)) : null}
+      />
+    ));
+  }
+
   render() {
-    const { shops, location } = this.state;
-    const sortFunc = (prevShop, nextShop) => {
-      if (!location) {
-        return 0;
-      }
-      const prevShopDistance = getDistance(location, this.getShopLocation(prevShop));
-      const nextShopDistance = getDistance(location, this.getShopLocation(nextShop));
-      return prevShopDistance - nextShopDistance;
-    };
     return (
-      <div className="shop-list">
-        {
-          shops.sort(sortFunc).map((shop) => (
-            <Shop shop={shop} key={shop.address} distance={location ? getDistance(location, this.getShopLocation(shop)) : null} />
-          ))
-        }
+      <div className="shopList">
+        {this.renderShops()}
       </div>
     );
   }
