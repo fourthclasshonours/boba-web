@@ -5,29 +5,35 @@ import './styles.scss';
 
 import shopPropType from '../../prop-types/shop';
 
-const Shop = ({ shop, distance }) => (
-  <div className="shop">
-    <div className="chain">
-      <span>
-        {shop.chain}
-      </span>
-    </div>
-    <span className="title">
-      {shop.title}
-    </span>
-    <span className="address">
-      {shop.address}
-    </span>
-    {
-      distance !== null ? (
-        <span className="distance">
-          {distance}
-          m
-        </span>
-      ) : null
+const Shop = ({ shop, distance }) => {
+  const formatName = () => {
+    const { chain, title } = shop;
+
+    if (title.includes('@')) {
+      return title;
     }
-  </div>
-);
+
+    return `${chain} @ ${title}`;
+  };
+
+  return (
+    <div className="shop">
+      <h2 className="shop__name">
+        {formatName()}
+      </h2>
+      <p className="shop__address">
+        {shop.address}
+      </p>
+      {
+        distance !== null ? (
+          <p className="shop__distance">
+            {distance} m
+          </p>
+        ) : null
+      }
+    </div>
+  );
+}
 
 Shop.propTypes = {
   shop: shopPropType.isRequired,
