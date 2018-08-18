@@ -16,14 +16,20 @@ const Shop = ({ shop, distance }) => {
     return `${chain} @ ${title}`;
   };
 
+  const shopCoordinates = `${shop.location.LATITUDE},${shop.location.LONGITUDE}`;
+
   return (
     <div className="shop">
       <h2 className="shop__name">
         {formatName()}
       </h2>
-      <p className="shop__address">
+      <a
+        className="shop__address"
+        href={navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? `maps:?daddr=${shopCoordinates}` : `geo:?daddr=${shopCoordinates}`}
+        target="_system"
+      >
         {shop.address}
-      </p>
+      </a>
       {
         distance !== null ? (
           <p className="shop__distance">
