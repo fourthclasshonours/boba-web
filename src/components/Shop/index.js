@@ -15,6 +15,21 @@ const Shop = ({ shop, distance }) => {
 
     return `${chain} @ ${title}`;
   };
+  function openMapApp(shopCoordinates) {
+    const isAppleOS = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)?true:false;
+    const isWindows = navigator.platform.match(/(Win)/i)?true:false;
+
+    // Open Apple Maps if OS is iOS/macOS
+    if (isAppleOS) {
+      return `maps:?daddr=${shopCoordinates}`; 
+    }
+    // Open Bing Maps if OS is Windows
+    if (isWindows) {
+      return `http://bing.com/maps/default.aspx?rtp=~adr.${shopCoordinates}`;
+    }
+    // Open Google Maps app on Android or web on other platforms not listed
+    return `https://www.google.com/maps/search/?api=1&query=${shopCoordinates}`;
+  }
 
   const shopCoordinates = `${shop.location.LATITUDE},${shop.location.LONGITUDE}`;
 
@@ -25,7 +40,7 @@ const Shop = ({ shop, distance }) => {
       </h2>
       <a
         className="shop__address"
-        href={navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? `maps:?daddr=${shopCoordinates}` : `geo:?daddr=${shopCoordinates}`}
+        href={openMapApp(shopCoordinates)}
         target="_system"
       >
         {shop.address}
