@@ -28,7 +28,7 @@ const Shop = ({ shop, distance }) => {
       return `http://bing.com/maps/default.aspx?rtp=~adr.${shopCoordinates}`;
     }
     // Open Google Maps app on Android or web on other platforms not listed
-    return `https://www.google.com/maps/search/?api=1&query=${shopCoordinates}`;
+    return `https://www.google.com/maps/dir/?api=1&destination=${shopCoordinates}`;
   }
 
   const shopCoordinates = `${shop.location.LATITUDE},${shop.location.LONGITUDE}`;
