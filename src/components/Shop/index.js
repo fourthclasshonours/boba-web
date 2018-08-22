@@ -16,18 +16,14 @@ const Shop = ({ shop, distance }) => {
     return `${chain} @ ${title}`;
   };
   function openMapApp(shopCoordinates) {
-    const isAppleOS = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)?true:false;
-    const isWindows = navigator.platform.match(/(Win)/i)?true:false;
+    const isAppleOS = navigator.platform.match(/(iPhone|iPod|iPad)/i)?true:false;
 
-    // Open Apple Maps if OS is iOS/macOS
+    // Open Apple Maps if OS is iOS
     if (isAppleOS) {
-      return `maps:?daddr=${shopCoordinates}`; 
+      return `maps:?daddr=${shopCoordinates}`;
     }
-    // Open Bing Maps if OS is Windows
-    if (isWindows) {
-      return `http://bing.com/maps/default.aspx?rtp=~adr.${shopCoordinates}`;
-    }
-    // Open Google Maps app on Android or web on other platforms not listed
+
+    // Open Google Maps app/web on other platforms
     return `https://www.google.com/maps/dir/?api=1&destination=${shopCoordinates}`;
   }
 
