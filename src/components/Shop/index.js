@@ -15,15 +15,32 @@ const Shop = ({ shop, distance }) => {
 
     return `${chain} @ ${title}`;
   };
+  function openMapApp(shopCoordinates) {
+    const isAppleOS = navigator.platform.match(/(iPhone|iPod|iPad)/i)?true:false;
+
+    // Open Apple Maps if OS is iOS
+    if (isAppleOS) {
+      return `maps:?daddr=${shopCoordinates}`;
+    }
+
+    // Open Google Maps app/web on other platforms
+    return `https://www.google.com/maps/dir/?api=1&destination=${shopCoordinates}`;
+  }
+
+  const shopCoordinates = `${shop.location.LATITUDE},${shop.location.LONGITUDE}`;
 
   return (
     <div className="shop">
       <h2 className="shop__name">
         {formatName()}
       </h2>
-      <p className="shop__address">
+      <a
+        className="shop__address"
+        href={openMapApp(shopCoordinates)}
+        target="_system"
+      >
         {shop.address}
-      </p>
+      </a>
       {
         distance !== null ? (
           <p className="shop__distance">
