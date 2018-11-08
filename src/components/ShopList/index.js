@@ -58,7 +58,7 @@ class ShopList extends Component {
   }
 
   async load() {
-    const shops = await fetch('https://bottleneckco.github.io/boba-scraper/data.json')
+    const shops = await fetch('https://bottleneckco.github.io/sg-scraper/data.json')
       .then((r) => r.json());
 
     this.setState({ shops: shops.filter((shop) => shop.location) });
