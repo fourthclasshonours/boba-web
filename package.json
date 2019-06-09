@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "autoprefixer": "^9.1.0",
-    "babel-polyfill": "^6.26.0",
     "eslint-config-airbnb": "^17.0.0",
     "geolib": "^2.0.24",
     "parcel-bundler": "^1.9.7",
