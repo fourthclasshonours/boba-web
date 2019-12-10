@@ -54,7 +54,7 @@ const Shop = ({ shop, distance }) => {
 
 Shop.propTypes = {
   shop: shopPropType.isRequired,
-  distance: PropTypes.number.isRequired,
+  distance: PropTypes.number,
 };
 
 export default Shop;

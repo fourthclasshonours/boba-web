@@ -32,6 +32,7 @@ class ShopList extends Component {
         },
       });
     }, console.error);
+
     this.load();
   }
 
@@ -59,7 +60,21 @@ class ShopList extends Component {
 
   async load() {
     const shops = await fetch('https://bottleneckco.github.io/sg-scraper/boba.json')
-      .then((r) => r.json());
+      .then((r) => r.json())
+      .then((data) => {
+        // Remove duplicate entries
+        const newShops = [];
+        const addedAddr = [];
+
+        data.forEach((s) => {
+          if (!addedAddr.includes(s.address)) {
+            newShops.push(s);
+            addedAddr.push(s.address);
+          }
+        });
+
+        return newShops;
+      });
 
     this.setState({ shops: shops.filter((shop) => shop.location) });
   }
