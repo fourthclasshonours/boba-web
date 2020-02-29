@@ -72,7 +72,6 @@ class ShopList extends Component {
             addedAddr.push(s.address);
           }
         });
-
         return newShops;
       });
 

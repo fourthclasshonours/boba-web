@@ -9,14 +9,20 @@ const Shop = ({ shop, distance }) => {
   const formatName = () => {
     const { chain, title } = shop;
 
+    // If title ends up as null, just return the chain
+    if (title === null) {
+      return `${chain}`;
+    }
+
     if (title.includes('@')) {
       return title;
     }
 
     return `${chain} @ ${title}`;
   };
+
   function openMapApp(shopCoordinates) {
-    const isAppleOS = navigator.platform.match(/(iPhone|iPod|iPad)/i)?true:false;
+    const isAppleOS = navigator.platform.match(/(iPhone|iPod|iPad)/i) !== null;
 
     // Open Apple Maps if OS is iOS
     if (isAppleOS) {
