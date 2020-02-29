@@ -9,6 +9,11 @@ const Shop = ({ shop, distance }) => {
   const formatName = () => {
     const { chain, title } = shop;
 
+    // If title ends up as null, just return the chain
+    if (title === null) {
+      return `${chain}`;
+    }
+
     if (title.includes('@')) {
       return title;
     }

@@ -31,7 +31,7 @@ class ShopList extends Component {
           longitude: position.coords.longitude,
         },
       });
-    }, console.error);
+    }, console.error());
 
     this.load();
   }
@@ -72,7 +72,6 @@ class ShopList extends Component {
             addedAddr.push(s.address);
           }
         });
-
         return newShops;
       });
 
