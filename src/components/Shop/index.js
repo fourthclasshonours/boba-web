@@ -22,10 +22,10 @@ const Shop = ({ shop, distance }) => {
   };
 
   function openMapApp(shopCoordinates) {
-    const isAppleOS = navigator.platform.match(/(iPhone|iPod|iPad)/i);
+    const isAppleOS = navigator.platform.match(/(iPhone|iPod|iPad)/i) !== null;
 
     // Open Apple Maps if OS is iOS
-    if (isAppleOS != null) {
+    if (isAppleOS) {
       return `maps:?daddr=${shopCoordinates}`;
     }
 
