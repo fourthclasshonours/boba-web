@@ -42,7 +42,7 @@ const Shop: React.FC<Props> = function (props) {
     return `${chain} @ ${title}`;
   };
 
-  function openMapApp(shopCoordinates) {
+  function openMapApp(shopCoordinates: string) {
     const isAppleOS = navigator.platform.match(/(iPhone|iPod|iPad)/i) !== null;
 
     // Open Apple Maps if OS is iOS
