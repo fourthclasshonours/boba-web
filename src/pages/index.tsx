@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './components/Header';
-import ShopList from './components/ShopList';
-import './stylesheets/styles.scss';
+
+import Header from '../components/Header';
+import ShopList from '../components/ShopList';
 
 const App = () => (
   <div>

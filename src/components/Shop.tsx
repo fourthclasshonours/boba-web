@@ -1,11 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import './styles.scss';
+const Wrapper = styled.div`
+  margin-bottom: 1rem;
+`;
 
-import shopPropType from '../../prop-types/shop';
+const Name = styled.h2`
+  margin: 0 0 0.5rem;
+  font-weight: normal;
+`;
 
-const Shop = ({ shop, distance }) => {
+const Link = styled.a`
+  margin: 0;
+  color: $manatee;
+`;
+
+const Distance = styled.p`
+  margin: 0;
+  color: $manatee;
+`;
+
+interface Props {
+  shop: App.Shop;
+  distance: number;
+}
+
+const Shop: React.FC<Props> = function (props) {
+  const { shop, distance } = props;
   const formatName = () => {
     const { chain, title } = shop;
 
@@ -33,34 +54,17 @@ const Shop = ({ shop, distance }) => {
     return `https://www.google.com/maps/dir/?api=1&destination=${shopCoordinates}`;
   }
 
-  const shopCoordinates = `${shop.location.LATITUDE},${shop.location.LONGITUDE}`;
+  const shopCoordinates = `${shop.location.coordinates[1]},${shop.location.coordinates[0]}`;
 
   return (
-    <div className="shop">
-      <h2 className="shop__name">
-        {formatName()}
-      </h2>
-      <a
-        className="shop__address"
-        href={openMapApp(shopCoordinates)}
-        target="_system"
-      >
+    <Wrapper>
+      <Name>{formatName()}</Name>
+      <Link href={openMapApp(shopCoordinates)} target="_system">
         {shop.address}
-      </a>
-      {
-        distance !== null ? (
-          <p className="shop__distance">
-            {distance} m
-          </p>
-        ) : null
-      }
-    </div>
+      </Link>
+      {distance !== null ? <Distance>{distance} m</Distance> : null}
+    </Wrapper>
   );
-}
-
-Shop.propTypes = {
-  shop: shopPropType.isRequired,
-  distance: PropTypes.number,
 };
 
 export default Shop;
