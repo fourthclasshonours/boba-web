@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { ChainName } from '../constants/Chains';
 import Chain from './Chain';
 
 const Wrapper = styled.div`
@@ -68,7 +69,7 @@ const Shop: React.FC<Props> = function (props) {
   return (
     <Wrapper>
       <TitleWrapper>
-        <Chain chain={shop.chain} />
+        <Chain chain={shop.chain as ChainName} />
         <Name>{formatName()}</Name>
       </TitleWrapper>
       <Link href={openMapApp(shopCoordinates)} target="_system">
