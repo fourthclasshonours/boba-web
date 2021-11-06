@@ -1,17 +1,17 @@
 import { getDistance } from 'geolib';
 import flatten from 'lodash/flatten';
 import React, { useEffect, useMemo, useState } from 'react';
-import styled from 'styled-components';
 
 import Shop from './Shop';
+import { Wrapper } from './Styles';
 
-const Wrapper = styled.div`
-  margin: 0 auto 2rem;
-  max-width: 800px;
-  width: 90%;
-`;
+interface Props {
+  selectedFilters: string[];
+}
 
-const ShopList: React.FC = function () {
+const ShopList: React.FC<Props> = function (props) {
+  const { selectedFilters } = props;
+
   const [shops, setShops] = useState<{
     [chainName: string]: App.Shop[];
   } | null>(null);
@@ -42,7 +42,18 @@ const ShopList: React.FC = function () {
       return null;
     }
 
-    const filteredShops = flatten(Object.values(shops)).filter((shop) => {
+    let filteredShops: App.Shop[] = [];
+    if (selectedFilters.length === 0) {
+      filteredShops = flatten(Object.values(shops));
+    } else {
+      for (const [chain, chainShops] of Object.entries(shops)) {
+        if (selectedFilters.includes(chain)) {
+          filteredShops.push(...chainShops);
+        }
+      }
+    }
+
+    const shopsWithLocation = filteredShops.filter((shop) => {
       const hasLocation = shop.location !== null;
 
       if (!hasLocation) {
@@ -52,7 +63,7 @@ const ShopList: React.FC = function () {
       return hasLocation;
     });
 
-    const shopsWithDistance = filteredShops.map((shop) => {
+    const shopsWithDistance = shopsWithLocation.map((shop) => {
       if (userLocation === null) {
         return { ...shop, distance: -1 };
       }
@@ -80,18 +91,16 @@ const ShopList: React.FC = function () {
     );
 
     return sortedShops;
-  }, [userLocation, shops]);
+  }, [userLocation, shops, selectedFilters]);
 
   if (processedShops === null) {
-    return <div>Loading...</div>;
+    return <Wrapper>Loading...</Wrapper>;
   }
 
   return (
     <Wrapper>
       {processedShops.map((shop) => (
-        <>
-          <Shop shop={shop} key={shop.address} distance={shop.distance} />
-        </>
+        <Shop shop={shop} key={shop.address} distance={shop.distance} />
       ))}
     </Wrapper>
   );

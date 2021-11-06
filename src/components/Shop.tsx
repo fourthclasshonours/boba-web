@@ -1,23 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { ChainName } from '../constants/Chains';
+import Chain from './Chain';
+
 const Wrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-const Name = styled.h2`
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
   margin: 0 0 0.5rem;
+`;
+
+const Name = styled.h2`
+  margin: 0 0 0 0.5rem;
   font-weight: normal;
 `;
 
 const Link = styled.a`
   margin: 0;
-  color: $manatee;
+  color: var(--manatee);
 `;
 
 const Distance = styled.p`
   margin: 0;
-  color: $manatee;
+  color: var(--purple);
 `;
 
 interface Props {
@@ -29,6 +38,7 @@ const Shop: React.FC<Props> = function (props) {
   const { shop, distance } = props;
   const formatName = () => {
     const { chain, title } = shop;
+    let newTitle = title;
 
     // If title ends up as null, just return the chain
     if (title === null) {
@@ -36,10 +46,10 @@ const Shop: React.FC<Props> = function (props) {
     }
 
     if (title.includes('@')) {
-      return title;
+      newTitle = title.split('@')[1];
     }
 
-    return `${chain} @ ${title}`;
+    return newTitle;
   };
 
   function openMapApp(shopCoordinates: string) {
@@ -58,7 +68,10 @@ const Shop: React.FC<Props> = function (props) {
 
   return (
     <Wrapper>
-      <Name>{formatName()}</Name>
+      <TitleWrapper>
+        <Chain chain={shop.chain as ChainName} />
+        <Name>{formatName()}</Name>
+      </TitleWrapper>
       <Link href={openMapApp(shopCoordinates)} target="_system">
         {shop.address}
       </Link>
