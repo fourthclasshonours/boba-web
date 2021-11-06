@@ -39,10 +39,10 @@ const Shop: React.FC<Props> = function (props) {
     const { chain, title } = shop;
     let newTitle = title;
 
-    // // If title ends up as null, just return the chain
-    // if (title === null) {
-    //   return `${chain}`;
-    // }
+    // If title ends up as null, just return the chain
+    if (title === null) {
+      return `${chain}`;
+    }
 
     if (title.includes('@')) {
       newTitle = title.split('@')[1];
