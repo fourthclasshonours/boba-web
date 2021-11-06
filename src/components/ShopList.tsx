@@ -46,11 +46,11 @@ const ShopList: React.FC<Props> = function (props) {
     if (selectedFilters.length === 0) {
       filteredShops = flatten(Object.values(shops));
     } else {
-      Object.entries(shops).forEach(([chain, chainShops]) => {
+      for (const [chain, chainShops] of Object.entries(shops)) {
         if (selectedFilters.includes(chain)) {
           filteredShops.push(...chainShops);
         }
-      });
+      }
     }
 
     const shopsWithLocation = filteredShops.filter((shop) => {

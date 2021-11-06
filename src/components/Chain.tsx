@@ -13,7 +13,7 @@ const Wrapper = styled.div<{ $background?: string }>`
 interface Props {
   className?: string;
   chain: ChainName;
-  handleClick?: () => void;
+  handleClick?: React.MouseEventHandler;
 }
 
 const Chain: React.FC<Props> = function (props) {
