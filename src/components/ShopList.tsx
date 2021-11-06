@@ -83,15 +83,13 @@ const ShopList: React.FC = function () {
   }, [userLocation, shops]);
 
   if (processedShops === null) {
-    return <div>Loading...</div>;
+    return <Wrapper>Loading...</Wrapper>;
   }
 
   return (
     <Wrapper>
       {processedShops.map((shop) => (
-        <>
-          <Shop shop={shop} key={shop.address} distance={shop.distance} />
-        </>
+        <Shop shop={shop} key={shop.address} distance={shop.distance} />
       ))}
     </Wrapper>
   );
