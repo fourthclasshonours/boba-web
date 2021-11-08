@@ -5,6 +5,7 @@ export const ChainNames = {
   gongCha: 'Gong Cha' as const,
   koi: 'KOI' as const,
   liho: 'LiHO' as const,
+  mrCoconut: 'Mr Coconut' as const,
   playmade: 'Playmade' as const,
   tigerSugar: 'Tiger Sugar' as const,
 };
@@ -18,6 +19,7 @@ export const ChainColors = {
   [ChainNames.gongCha]: '#8F2D56',
   [ChainNames.koi]: '#5CA4A9',
   [ChainNames.liho]: '#ED6A5A',
+  [ChainNames.mrCoconut]: '#A5C882',
   [ChainNames.playmade]: '#7765E3',
   [ChainNames.tigerSugar]: '#7E3F8F',
 };
