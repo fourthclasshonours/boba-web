@@ -16,8 +16,7 @@ module.exports = {
     },
   },
   extends: [
-    'plugin:react-hooks/recommended',
-    'plugin:react/recommended',
+    'plugin:@next/next/recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
