@@ -8,6 +8,7 @@ import Document, {
 import React from 'react';
 import { ServerStyleSheet } from 'styled-components';
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 //@ts-ignore
 export default class MyDocument extends Document {
   static getInitialProps(ctx: DocumentContext) {

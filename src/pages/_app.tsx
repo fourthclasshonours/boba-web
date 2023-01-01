@@ -1,7 +1,7 @@
 import 'normalize.css';
 import '../stylesheets/styles.scss';
 
-import { AppProps } from 'next/dist/next-server/lib/router/router';
+import { AppProps } from 'next/app';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
