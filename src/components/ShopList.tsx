@@ -29,7 +29,7 @@ const ShopList: React.FC<Props> = function (props) {
   useEffect(() => {
     async function load() {
       const response = await fetch(
-        'https://fourthclasshonours.github.io/sg-scraper/boba.json'
+        'https://foldaway.github.io/sg-scraper/boba.json'
       );
       const data: { [chainName: string]: App.Shop[] } = await response.json();
       setShops(data);
