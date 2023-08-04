@@ -1,6 +1,7 @@
 import 'normalize.css';
 import '../stylesheets/styles.scss';
 
+import { Analytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
@@ -13,6 +14,7 @@ const App: React.FC<AppProps> = function (props) {
   return (
     <ThemeProvider theme={theme}>
       <Component {...pageProps} />
+      <Analytics />
     </ThemeProvider>
   );
 };
