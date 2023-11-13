@@ -100,7 +100,11 @@ const ShopList: React.FC<Props> = function (props) {
   return (
     <Wrapper>
       {processedShops.map((shop) => (
-        <Shop shop={shop} key={shop.address} distance={shop.distance} />
+        <Shop
+          shop={shop}
+          key={[shop.chain, shop.title, shop.address].join('.')}
+          distance={shop.distance}
+        />
       ))}
     </Wrapper>
   );
