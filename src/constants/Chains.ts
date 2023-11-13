@@ -7,7 +7,6 @@ export const ChainNames = {
   liho: 'LiHO' as const,
   mrCoconut: 'Mr Coconut' as const,
   playmade: 'Playmade' as const,
-  tigerSugar: 'Tiger Sugar' as const,
 };
 
 export type ChainName = typeof ChainNames[keyof typeof ChainNames];
@@ -21,5 +20,4 @@ export const ChainColors = {
   [ChainNames.liho]: '#ED6A5A',
   [ChainNames.mrCoconut]: '#A5C882',
   [ChainNames.playmade]: '#7765E3',
-  [ChainNames.tigerSugar]: '#7E3F8F',
 };
